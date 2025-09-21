@@ -1,0 +1,222 @@
+/* editor-styles.css - Стилі для Visual Novel Editor */
+
+/* Основна тема */
+.root {
+    -fx-base: #2b2b2b;
+    -fx-background: #2b2b2b;
+    -fx-control-inner-background: #3c3c3c;
+    -fx-accent: #4a9eff;
+}
+
+/* Текст */
+.label {
+    -fx-text-fill: #ffffff;
+}
+
+.text-field, .text-area, .combo-box {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #666666;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #4a9eff;
+    -fx-effect: dropshadow(gaussian, #4a9eff, 3, 0.3, 0, 0);
+}
+
+/* Кнопки */
+.button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #666666;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5 15 5 15;
+}
+
+.button:hover {
+    -fx-background-color: #5a5a5a;
+    -fx-border-color: #777777;
+}
+
+.button:pressed {
+    -fx-background-color: #3a3a3a;
+}
+
+/* Акцентні кнопки */
+.button.accent {
+    -fx-background-color: #4a9eff;
+    -fx-border-color: #3a8eef;
+}
+
+.button.accent:hover {
+    -fx-background-color: #5aa9ff;
+    -fx-border-color: #4a9eff;
+}
+
+/* Панелі */
+.split-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.split-pane .split-pane-divider {
+    -fx-background-color: #666666;
+    -fx-padding: 0 1 0 1;
+}
+
+/* Toolbar */
+.tool-bar {
+    -fx-background-color: #3c3c3c;
+    -fx-border-color: #666666;
+    -fx-border-width: 0 0 1 0;
+}
+
+.tool-bar .button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.tool-bar .button:hover {
+    -fx-background-color: #4a4a4a;
+    -fx-border-color: #666666;
+}
+
+/* Ноди */
+.scene-node {
+    -fx-background-color: #4a4a4a;
+    -fx-border-color: #666666;
+    -fx-border-width: 2;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 2, 2);
+}
+
+.scene-node:hover {
+    -fx-border-color: #888888;
+}
+
+.scene-node.selected {
+    -fx-border-color: #ffaa00;
+    -fx-effect: dropshadow(gaussian, #ffaa00, 8, 0.4, 0, 0);
+}
+
+.scene-node.start-node {
+    -fx-background-color: #4a9eff;
+    -fx-border-color: #ffffff;
+}
+
+.scene-node .label {
+    -fx-text-fill: #ffffff;
+}
+
+/* TreeView */
+.tree-view {
+    -fx-background-color: #2a2a2a;
+    -fx-control-inner-background: #2a2a2a;
+}
+
+.tree-view .tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cccccc;
+}
+
+.tree-view .tree-cell:selected {
+    -fx-background-color: #4a9eff;
+    -fx-text-fill: #ffffff;
+}
+
+.tree-view .tree-cell:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #3c3c3c;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: #3c3c3c;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #2a2a2a;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #666666;
+    -fx-background-radius: 3;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #777777;
+}
+
+/* ComboBox */
+.combo-box .list-cell {
+    -fx-background-color: #3c3c3c;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #3c3c3c;
+    -fx-border-color: #666666;
+}
+
+/* CheckBox */
+.check-box {
+    -fx-text-fill: #ffffff;
+}
+
+.check-box .box {
+    -fx-background-color: #4a4a4a;
+    -fx-border-color: #666666;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #4a9eff;
+}
+
+/* Separator */
+.separator .line {
+    -fx-border-color: #555555;
+}
+
+/* Dialog стилі */
+.dialog-pane {
+    -fx-background-color: #3c3c3c;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #4a4a4a;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #666666;
+}
+
+/* Анімації */
+.scene-node {
+    -fx-transition: -fx-border-color 0.2s ease;
+}
+
+.button {
+    -fx-transition: -fx-background-color 0.1s ease;
+}
