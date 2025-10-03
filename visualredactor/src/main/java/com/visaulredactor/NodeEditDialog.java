@@ -6,8 +6,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class NodeEditDialog extends Dialog<SceneNode> {
     private SceneNode node;
+    private List<SceneNode> allNodes; // добавим список всех нод
     private TextField idField;
     private TextField characterNameField;
     private TextArea dialogueArea;
@@ -16,8 +21,9 @@ public class NodeEditDialog extends Dialog<SceneNode> {
     private CheckBox showCharacterCheck;
     private VBox choicesContainer;
 
-    public NodeEditDialog(SceneNode node) {
+    public NodeEditDialog(SceneNode node, List<SceneNode> allNodes) {
         this.node = node;
+        this.allNodes = allNodes;
         setupDialog();
         fillFields();
     }
@@ -117,51 +123,86 @@ public class NodeEditDialog extends Dialog<SceneNode> {
         HBox choiceRow = new HBox(5);
         choiceRow.setPadding(new Insets(2));
 
+        // Поле текста варианта
         TextField textField = new TextField(choiceText);
         textField.setPromptText("Текст варіанту");
         textField.setPrefWidth(200);
 
-        TextField targetField = new TextField(targetNode);
-        targetField.setPromptText("ID цільової ноди");
-        targetField.setPrefWidth(150);
+        // ComboBox для выбора целевой ноды
+        ComboBox<String> targetCombo = new ComboBox<>();
+        targetCombo.setPrefWidth(150);
+        targetCombo.setPromptText("ID цільової ноди");
 
+        // Заполняем список доступных нод
+        Set<String> usedTargets = allNodes.stream()
+                .flatMap(n -> n.getChoices().stream())
+                .map(NodeChoice::getTargetNodeId)
+                .collect(Collectors.toSet());
+
+        List<String> availableTargets = allNodes.stream()
+                .map(SceneNode::getId)
+                .filter(id -> !id.equals(node.getId())) // не ссылка на саму себя
+                .filter(id -> !usedTargets.contains(id) || id.equals(targetNode)) // исключаем уже занятые
+                .toList();
+
+        targetCombo.getItems().addAll(availableTargets);
+        if (targetNode != null && !targetNode.isEmpty()) {
+            targetCombo.setValue(targetNode);
+        }
+
+        // Кнопка удаления строки
         Button removeBtn = new Button("×");
         removeBtn.setOnAction(e -> choicesContainer.getChildren().remove(choiceRow));
 
-        choiceRow.getChildren().addAll(
-                new Label("→"), textField,
-                new Label("до:"), targetField,
-                removeBtn
-        );
+        // Добавляем всё в строку
+        choiceRow.getChildren().addAll(new Label("→"), textField, new Label("до:"), targetCombo, removeBtn);
 
+        // Добавляем строку в контейнер
         choicesContainer.getChildren().add(choiceRow);
     }
 
     private SceneNode saveChanges() {
-        node.setId(idField.getText());
+        // основные поля
+        node.setId(idField.getText() != null ? idField.getText().trim() : "");
         node.setCharacterName(characterNameField.getText());
         node.setDialogueText(dialogueArea.getText());
         node.setBackground(backgroundCombo.getValue());
         node.setCharacter(characterCombo.getValue());
         node.setShowCharacter(showCharacterCheck.isSelected());
 
-        // Зберегти варіанти вибору
+        // очистить старые варинты
         node.getChoices().clear();
+
+        // Проходим по всем HBox-строкам в контейнере и безопасно ищем TextField и ComboBox
         for (javafx.scene.Node child : choicesContainer.getChildren()) {
-            if (child instanceof HBox) {
-                HBox choiceRow = (HBox) child;
-                TextField textField = (TextField) choiceRow.getChildren().get(1);
-                TextField targetField = (TextField) choiceRow.getChildren().get(3);
+            if (!(child instanceof HBox)) continue;
+            HBox choiceRow = (HBox) child;
 
-                String text = textField.getText().trim();
-                String target = targetField.getText().trim();
+            // Найдём первое TextField и первый ComboBox в этой строке (не используем "магические" индексы)
+            TextField textField = null;
+            @SuppressWarnings("unchecked")
+            ComboBox<String> targetCombo = null;
 
-                if (!text.isEmpty() && !target.isEmpty()) {
-                    node.addChoice(new NodeChoice(text, target));
+            for (javafx.scene.Node n : choiceRow.getChildren()) {
+                if (n instanceof TextField && textField == null) {
+                    textField = (TextField) n;
+                } else if (n instanceof ComboBox && targetCombo == null) {
+                    targetCombo = (ComboBox<String>) n;
                 }
+            }
+
+            if (textField == null || targetCombo == null) continue;
+
+            String text = textField.getText() != null ? textField.getText().trim() : "";
+            String target = targetCombo.getValue();
+
+            if (!text.isEmpty() && target != null && !target.isEmpty()) {
+                node.addChoice(new NodeChoice(text, target));
             }
         }
 
         return node;
     }
+
+
 }

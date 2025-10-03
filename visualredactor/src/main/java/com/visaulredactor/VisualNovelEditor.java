@@ -214,8 +214,10 @@ public class VisualNovelEditor extends Application {
         nodeView.setOnMouseClicked(e -> {
             if (e.getClickCount() == 1) {
                 selectNode(node, nodeView);
+                e.consume(); // <-- чтобы не всплыло на canvas
             } else if (e.getClickCount() == 2) {
                 editNode(node);
+                e.consume(); // <-- обязательно останавливаем
             }
         });
 
@@ -225,6 +227,7 @@ public class VisualNovelEditor extends Application {
         node.setNodeView(nodeView);
         return nodeView;
     }
+
 
     private void setupNodeDragging(VBox nodeView, SceneNode node) {
         final Delta dragDelta = new Delta();
@@ -262,12 +265,33 @@ public class VisualNovelEditor extends Application {
     }
 
     private void editNode(SceneNode node) {
-        // Відкрити детальний редактор ноди
-        NodeEditDialog dialog = new NodeEditDialog(node);
+        NodeEditDialog dialog = new NodeEditDialog(node, nodes);
         dialog.showAndWait().ifPresent(result -> {
-            updateNodeView(node);
+            // result — объект, возвращённый диалогом (у нас это тот же объект node, но на всякий случай проверим)
+            SceneNode updated = result;
+
+            // Если диалог по каким-то причинам вернул новый экземпляр (маловероятно),
+            // то заменим ссылку в списке nodes и в стартовой ноде/выделении:
+            if (updated != node) {
+                int idx = nodes.indexOf(node);
+                if (idx >= 0) nodes.set(idx, updated);
+                if (startNode == node) startNode = updated;
+                selectedNode = updated;
+            }
+
+            // Обновляем визуальное представление ноды
+            updateNodeView(updated);
+
+            // Перерисовываем соединения (чтобы линии шли к новым id/координатам)
+            updateConnections();
+
+            // Обновляем дерево путей и выделение
+            if (selectedNode != null) {
+                updatePathTree(selectedNode);
+            }
         });
     }
+
 
     private void updateNodeView(SceneNode node) {
         VBox nodeView = node.getNodeView();
