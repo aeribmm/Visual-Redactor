@@ -2,8 +2,10 @@ package com.visaulredactor;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class VisualNovelEditor extends Application {
 
-    private Pane canvas;
+    private ZoomablePane canvas;
     private VBox nodePanel;
     private VBox previewPanel;
     private TreeView<String> pathTreeView;
@@ -66,25 +68,57 @@ public class VisualNovelEditor extends Application {
         Button exportBtn = new Button("Експорт");
         Button playBtn = new Button("▶ Тест");
 
+        // ⬇️ НОВІ КНОПКИ для zoom
+        Button zoomInBtn = new Button("🔍+");
+        Button zoomOutBtn = new Button("🔍−");
+        Button zoomResetBtn = new Button("↺");
+        Button fitBtn = new Button("⊡");
+
         newNodeBtn.setOnAction(e -> createNewNode());
         saveBtn.setOnAction(e -> saveProject());
         loadBtn.setOnAction(e -> loadProject());
         exportBtn.setOnAction(e -> exportToCode());
         playBtn.setOnAction(e -> testFromCurrentNode());
 
-        toolbar.getItems().addAll(newNodeBtn, new Separator(),
+        // ⬇️ Прив'язка zoom controls
+        zoomInBtn.setOnAction(e -> canvas.zoomIn());
+        zoomOutBtn.setOnAction(e -> canvas.zoomOut());
+        zoomResetBtn.setOnAction(e -> canvas.resetZoom());
+        fitBtn.setOnAction(e -> canvas.fitToContent());
+
+        zoomInBtn.setTooltip(new Tooltip("Збільшити (Scroll up)"));
+        zoomOutBtn.setTooltip(new Tooltip("Зменшити (Scroll down)"));
+        zoomResetBtn.setTooltip(new Tooltip("Скинути масштаб"));
+        fitBtn.setTooltip(new Tooltip("Відцентрувати"));
+
+        toolbar.getItems().addAll(
+                newNodeBtn, new Separator(),
                 saveBtn, loadBtn, new Separator(),
-                exportBtn, new Separator(), playBtn);
+                zoomInBtn, zoomOutBtn, zoomResetBtn, fitBtn, new Separator(),
+                exportBtn, new Separator(), playBtn
+        );
 
         container.getChildren().addAll(toolbar, canvas);
         VBox.setVgrow(canvas, Priority.ALWAYS);
         return container;
     }
 
+    // Опціонально: додати label з поточним масштабом
+    private Label createZoomLabel() {
+        Label zoomLabel = new Label("100%");
+        zoomLabel.setStyle("-fx-text-fill: white; -fx-padding: 5;");
+
+        canvas.scaleProperty().addListener((obs, oldVal, newVal) -> {
+            int percentage = (int) (newVal.doubleValue() * 100);
+            zoomLabel.setText(percentage + "%");
+        });
+
+        return zoomLabel;
+    }
     private void setupCanvas() {
-        canvas = new Pane();
+        canvas = new ZoomablePane();
         canvas.setStyle("-fx-background-color: #2b2b2b;");
-        canvas.setPrefSize(800, 600);
+        canvas.setPrefSize(3000, 3000);
 
         // Обробка кліків для створення нових нодів
         canvas.setOnMouseClicked(this::handleCanvasClick);
@@ -168,7 +202,9 @@ public class VisualNovelEditor extends Application {
 
     private void handleCanvasClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
-            createNodeAt(event.getX(), event.getY());
+            // Конвертуємо screen coordinates в canvas coordinates з урахуванням масштабу
+            Point2D canvasPoint = canvas.sceneToLocal(event.getSceneX(), event.getSceneY());
+            createNodeAt(canvasPoint.getX(), canvasPoint.getY());
         }
     }
 
@@ -233,18 +269,34 @@ public class VisualNovelEditor extends Application {
         final Delta dragDelta = new Delta();
 
         nodeView.setOnMousePressed(e -> {
-            dragDelta.x = nodeView.getLayoutX() - e.getSceneX();
-            dragDelta.y = nodeView.getLayoutY() - e.getSceneY();
+            if (e.getButton() == MouseButton.PRIMARY) {
+                // Зберігаємо стартові координати
+                dragDelta.x = e.getSceneX();
+                dragDelta.y = e.getSceneY();
+                dragDelta.initialNodeX = nodeView.getLayoutX();
+                dragDelta.initialNodeY = nodeView.getLayoutY();
+                e.consume();
+            }
         });
 
         nodeView.setOnMouseDragged(e -> {
-            nodeView.setLayoutX(e.getSceneX() + dragDelta.x);
-            nodeView.setLayoutY(e.getSceneY() + dragDelta.y);
-            node.setX(nodeView.getLayoutX() + 75);
-            node.setY(nodeView.getLayoutY() + 50);
+            if (e.getButton() == MouseButton.PRIMARY) {
+                // Різниця переміщення курсору
+                double deltaX = e.getSceneX() - dragDelta.x;
+                double deltaY = e.getSceneY() - dragDelta.y;
 
-            // Оновити зʼєднання
-            updateConnections();
+                // Враховуємо масштаб canvas
+                double scale = canvas.getScaleX();
+                nodeView.setLayoutX(dragDelta.initialNodeX + deltaX / scale);
+                nodeView.setLayoutY(dragDelta.initialNodeY + deltaY / scale);
+
+                // Оновлюємо координати ноди
+                node.setX(nodeView.getLayoutX() + 75);
+                node.setY(nodeView.getLayoutY() + 50);
+
+                updateConnections();
+                e.consume();
+            }
         });
     }
 
@@ -445,5 +497,6 @@ public class VisualNovelEditor extends Application {
     // Допоміжний клас для перетягування
     class Delta {
         double x, y;
+        double initialNodeX, initialNodeY;
     }
 }

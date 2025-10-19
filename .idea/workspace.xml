@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="12b4bfc7-14c8-42ca-b67a-2d9449ae833f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/NodeEditDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/NodeEditDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +104,12 @@
       <workItem from="1758969401254" duration="24000" />
       <workItem from="1758969897921" duration="1121000" />
       <workItem from="1758985418947" duration="2000" />
-      <workItem from="1759491120893" duration="1708000" />
+      <workItem from="1759491120893" duration="2527000" />
+      <workItem from="1759607128813" duration="2000" />
+      <workItem from="1759619024779" duration="6000" />
+      <workItem from="1759847174753" duration="240000" />
+      <workItem from="1760815934244" duration="1268000" />
+      <workItem from="1760902189640" duration="1583000" />
     </task>
     <servers />
   </component>
