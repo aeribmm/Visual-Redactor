@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="12b4bfc7-14c8-42ca-b67a-2d9449ae833f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/GameTestWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/GameTestWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/NodeEditDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/NodeEditDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,25 +33,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "translte__buttons__to__english",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\msi\Desktop\visualnodelengine\engine" />
@@ -109,7 +111,15 @@
       <workItem from="1759619024779" duration="6000" />
       <workItem from="1759847174753" duration="240000" />
       <workItem from="1760815934244" duration="1268000" />
-      <workItem from="1760902189640" duration="1583000" />
+      <workItem from="1760902189640" duration="2590000" />
+      <workItem from="1761054686648" duration="360000" />
+      <workItem from="1761055054163" duration="331000" />
+      <workItem from="1761703702260" duration="2000" />
+      <workItem from="1761787605658" duration="771000" />
+      <workItem from="1762105019429" duration="1000" />
+      <workItem from="1763498652924" duration="2000" />
+      <workItem from="1763946649388" duration="14000" />
+      <workItem from="1764170769933" duration="1024000" />
     </task>
     <servers />
   </component>

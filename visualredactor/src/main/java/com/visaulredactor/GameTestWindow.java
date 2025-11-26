@@ -30,7 +30,7 @@ public class GameTestWindow {
 
     private void setupWindow() {
         stage = new Stage();
-        stage.setTitle("Тест сцени - " + currentNode.getId());
+        stage.setTitle("test scene" + currentNode.getId());
 
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
@@ -53,8 +53,8 @@ public class GameTestWindow {
         controlButtons.setAlignment(Pos.CENTER);
         controlButtons.setPadding(new Insets(10, 0, 0, 0));
 
-        Button restartBtn = new Button("Перезапустити");
-        Button closeBtn = new Button("Закрити");
+        Button restartBtn = new Button("Restart");
+        Button closeBtn = new Button("Close");
 
         restartBtn.setOnAction(e -> restartTest());
         closeBtn.setOnAction(e -> stage.close());
@@ -68,7 +68,6 @@ public class GameTestWindow {
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
 
-        // Відобразити початкову сцену
         displayCurrentScene();
     }
 
@@ -80,7 +79,7 @@ public class GameTestWindow {
         characterLabel = new Label();
 
         panel.getChildren().addAll(
-                new Label("Поточна сцена: " + currentNode.getId()),
+                new Label("Currently Scene: " + currentNode.getId()),
                 backgroundLabel,
                 characterLabel
         );
@@ -103,18 +102,18 @@ public class GameTestWindow {
     }
 
     private void displayCurrentScene() {
-        stage.setTitle("Тест сцени - " + currentNode.getId());
+        stage.setTitle("Test Scene - " + currentNode.getId());
 
         // Оновити інформацію про фон
         String bgText = currentNode.getBackground() != null ?
-                "Фон: " + currentNode.getBackground() : "Фон: не встановлено";
+                "Background: " + currentNode.getBackground() : "Background: not established.";
         backgroundLabel.setText(bgText);
 
         // Оновити інформацію про персонажа
         String charText = currentNode.getCharacter() != null ?
-                "Персонаж: " + currentNode.getCharacter() +
-                        (currentNode.isShowCharacter() ? " (показано)" : " (приховано)") :
-                "Персонаж: не встановлено";
+                "Character: " + currentNode.getCharacter() +
+                        (currentNode.isShowCharacter() ? " (Showed)" : " (Hided)") :
+                "Character: not established";
         characterLabel.setText(charText);
 
         // Оновити діалог
@@ -132,7 +131,7 @@ public class GameTestWindow {
         choicesBox.getChildren().clear();
 
         if (currentNode.getChoices().isEmpty()) {
-            Label noChoicesLabel = new Label("Кінець сцени");
+            Label noChoicesLabel = new Label("End of the scene");
             noChoicesLabel.setStyle("-fx-text-fill: #888; -fx-font-style: italic;");
             choicesBox.getChildren().add(noChoicesLabel);
         } else {
@@ -151,7 +150,7 @@ public class GameTestWindow {
             currentNode = targetNode;
             displayCurrentScene();
         } else {
-            Label errorLabel = new Label("Помилка: сцену '" + choice.getTargetNodeId() + "' не знайдено");
+            Label errorLabel = new Label("Error: Scene '" + choice.getTargetNodeId() + "' not found");
             errorLabel.setStyle("-fx-text-fill: red;");
             choicesBox.getChildren().add(errorLabel);
         }

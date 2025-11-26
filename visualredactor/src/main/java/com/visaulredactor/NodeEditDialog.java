@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class NodeEditDialog extends Dialog<SceneNode> {
     private SceneNode node;
-    private List<SceneNode> allNodes; // добавим список всех нод
+    private List<SceneNode> allNodes;
     private TextField idField;
     private TextField characterNameField;
     private TextArea dialogueArea;
@@ -29,8 +29,8 @@ public class NodeEditDialog extends Dialog<SceneNode> {
     }
 
     private void setupDialog() {
-        setTitle("Редагування сцени: " + node.getId());
-        setHeaderText("Налаштуйте параметри сцени");
+        setTitle("Editing the scene: " + node.getId());
+        setHeaderText("Configure the scene settings");
 
         // Створення полів
         GridPane grid = new GridPane();
@@ -54,7 +54,7 @@ public class NodeEditDialog extends Dialog<SceneNode> {
 
         // Секція варіантів вибору
         choicesContainer = new VBox(5);
-        Button addChoiceBtn = new Button("Додати варіант");
+        Button addChoiceBtn = new Button("Add choice");
         addChoiceBtn.setOnAction(e -> addChoiceField());
 
         ScrollPane choicesScroll = new ScrollPane(choicesContainer);
@@ -63,25 +63,25 @@ public class NodeEditDialog extends Dialog<SceneNode> {
 
         // Розміщення елементів
         int row = 0;
-        grid.add(new Label("ID ноди:"), 0, row);
+        grid.add(new Label("ID node:"), 0, row);
         grid.add(idField, 1, row++);
 
-        grid.add(new Label("Імʼя персонажа:"), 0, row);
+        grid.add(new Label("Character's name:"), 0, row);
         grid.add(characterNameField, 1, row++);
 
-        grid.add(new Label("Текст діалогу:"), 0, row);
+        grid.add(new Label("Dialogue text:"), 0, row);
         grid.add(dialogueArea, 1, row++);
 
-        grid.add(new Label("Фон:"), 0, row);
+        grid.add(new Label("Bg:"), 0, row);
         grid.add(backgroundCombo, 1, row++);
 
-        grid.add(new Label("Персонаж:"), 0, row);
+        grid.add(new Label("Character:"), 0, row);
         grid.add(characterCombo, 1, row++);
 
-        grid.add(new Label("Показати персонажа:"), 0, row);
+        grid.add(new Label("Show Character:"), 0, row);
         grid.add(showCharacterCheck, 1, row++);
 
-        grid.add(new Label("Варіанти вибору:"), 0, row);
+        grid.add(new Label("Selection Options:"), 0, row);
         VBox choicesSection = new VBox(5);
         choicesSection.getChildren().addAll(choicesScroll, addChoiceBtn);
         grid.add(choicesSection, 1, row++);
@@ -89,7 +89,7 @@ public class NodeEditDialog extends Dialog<SceneNode> {
         getDialogPane().setContent(grid);
 
         // Кнопки
-        ButtonType saveButtonType = new ButtonType("Зберегти", ButtonBar.ButtonData.OK_DONE);
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
         getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
         // Обробка результату
@@ -125,13 +125,13 @@ public class NodeEditDialog extends Dialog<SceneNode> {
 
         // Поле текста варианта
         TextField textField = new TextField(choiceText);
-        textField.setPromptText("Текст варіанту");
+        textField.setPromptText("text option");
         textField.setPrefWidth(200);
 
         // ComboBox для выбора целевой ноды
         ComboBox<String> targetCombo = new ComboBox<>();
         targetCombo.setPrefWidth(150);
-        targetCombo.setPromptText("ID цільової ноди");
+        targetCombo.setPromptText("Target node id");
 
         // Заполняем список доступных нод
         Set<String> usedTargets = allNodes.stream()

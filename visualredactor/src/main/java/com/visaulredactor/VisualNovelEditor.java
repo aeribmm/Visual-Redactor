@@ -62,11 +62,11 @@ public class VisualNovelEditor extends Application {
 
         // Панель інструментів
         ToolBar toolbar = new ToolBar();
-        Button newNodeBtn = new Button("Нова сцена");
-        Button saveBtn = new Button("Зберегти");
-        Button loadBtn = new Button("Завантажити");
-        Button exportBtn = new Button("Експорт");
-        Button playBtn = new Button("▶ Тест");
+        Button newNodeBtn = new Button("New scene");
+        Button saveBtn = new Button("Save");
+        Button loadBtn = new Button("Import");
+        Button exportBtn = new Button("Export");
+        Button playBtn = new Button("▶ Test");
 
         // ⬇️ НОВІ КНОПКИ для zoom
         Button zoomInBtn = new Button("🔍+");
@@ -86,10 +86,10 @@ public class VisualNovelEditor extends Application {
         zoomResetBtn.setOnAction(e -> canvas.resetZoom());
         fitBtn.setOnAction(e -> canvas.fitToContent());
 
-        zoomInBtn.setTooltip(new Tooltip("Збільшити (Scroll up)"));
-        zoomOutBtn.setTooltip(new Tooltip("Зменшити (Scroll down)"));
-        zoomResetBtn.setTooltip(new Tooltip("Скинути масштаб"));
-        fitBtn.setTooltip(new Tooltip("Відцентрувати"));
+        zoomInBtn.setTooltip(new Tooltip("Zoom in (Scroll up)"));
+        zoomOutBtn.setTooltip(new Tooltip("Zoom out (Scroll down)"));
+        zoomResetBtn.setTooltip(new Tooltip("Reset"));
+        fitBtn.setTooltip(new Tooltip("Fit"));
 
         toolbar.getItems().addAll(
                 newNodeBtn, new Separator(),
@@ -130,15 +130,15 @@ public class VisualNovelEditor extends Application {
         nodePanel.setPrefWidth(250);
         nodePanel.setStyle("-fx-background-color: #3c3c3c;");
 
-        Label title = new Label("Налаштування ноди");
+        Label title = new Label("Node properties");
         title.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
 
         // Поля для редагування ноди
         TextField nodeIdField = new TextField();
-        nodeIdField.setPromptText("ID ноди");
+        nodeIdField.setPromptText("Node id");
 
         TextArea textArea = new TextArea();
-        textArea.setPromptText("Текст діалогу...");
+        textArea.setPromptText("Dialogue Text...");
         textArea.setPrefRowCount(5);
 
         ComboBox<String> backgroundCombo = new ComboBox<>();
@@ -149,23 +149,23 @@ public class VisualNovelEditor extends Application {
         characterCombo.getItems().addAll("gg", "airi", "none");
         characterCombo.setPromptText("Персонаж");
 
-        CheckBox showCharacterCheck = new CheckBox("Показати персонажа");
+        CheckBox showCharacterCheck = new CheckBox("Show Character");
 
-        Button addChoiceBtn = new Button("Додати варіант");
+        Button addChoiceBtn = new Button("Add choice");
         VBox choicesBox = new VBox(5);
 
-        Button applyBtn = new Button("Застосувати зміни");
+        Button applyBtn = new Button("Apply changes");
         applyBtn.setOnAction(e -> applyNodeChanges(nodeIdField, textArea,
                 backgroundCombo, characterCombo, showCharacterCheck, choicesBox));
 
         nodePanel.getChildren().addAll(
                 title, new Separator(),
                 new Label("ID:"), nodeIdField,
-                new Label("Текст:"), textArea,
-                new Label("Фон:"), backgroundCombo,
-                new Label("Персонаж:"), characterCombo, showCharacterCheck,
+                new Label("Text:"), textArea,
+                new Label("Bg:"), backgroundCombo,
+                new Label("Character:"), characterCombo, showCharacterCheck,
                 new Separator(),
-                new Label("Варіанти вибору:"), choicesBox, addChoiceBtn,
+                new Label("Choices:"), choicesBox, addChoiceBtn,
                 new Separator(), applyBtn
         );
 
@@ -178,7 +178,7 @@ public class VisualNovelEditor extends Application {
         previewPanel.setPrefWidth(300);
         previewPanel.setStyle("-fx-background-color: #3c3c3c;");
 
-        Label previewTitle = new Label("Превʼю сцени");
+        Label previewTitle = new Label("Scene preview");
         previewTitle.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
 
         // Мініатюрне вікно превʼю
@@ -186,7 +186,7 @@ public class VisualNovelEditor extends Application {
         previewWindow.setPrefHeight(200);
         previewWindow.setStyle("-fx-background-color: #1a1a1a; -fx-border-color: #555;");
 
-        Label pathTitle = new Label("Дерево шляхів");
+        Label pathTitle = new Label("Path tree");
         pathTitle.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
 
         // Дерево шляхів до поточної ноди
@@ -357,7 +357,7 @@ public class VisualNovelEditor extends Application {
     }
 
     private void updatePathTree(SceneNode node) {
-        TreeItem<String> rootItem = new TreeItem<>("Шлях до: " + node.getId());
+        TreeItem<String> rootItem = new TreeItem<>("Path to: " + node.getId());
         rootItem.setExpanded(true);
 
         // Рекурсивно побудувати шлях від стартової ноди
@@ -405,7 +405,7 @@ public class VisualNovelEditor extends Application {
     }
 
     private String truncateText(String text) {
-        if (text == null || text.isEmpty()) return "Порожня нода";
+        if (text == null || text.isEmpty()) return "Empty node";
         return text.length() > 50 ? text.substring(0, 47) + "..." : text;
     }
 
@@ -467,19 +467,19 @@ public class VisualNovelEditor extends Application {
 
     private void saveProject() {
         // Зберегти проект в JSON
-        System.out.println("Збереження проекту...");
+        System.out.println("Saiving project...");
     }
 
     private void loadProject() {
         // Завантажити проект з JSON
-        System.out.println("Завантаження проекту...");
+        System.out.println("Loading project...");
     }
 
     private void exportToCode() {
         // Згенерувати код для движка
         ScriptGenerator generator = new ScriptGenerator();
         String code = generator.generateScript(nodes, startNode);
-        System.out.println("Згенерований код:\n" + code);
+        System.out.println("Generated code:\n" + code);
     }
 
     private void testFromCurrentNode() {
