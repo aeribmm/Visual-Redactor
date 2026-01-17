@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="12b4bfc7-14c8-42ca-b67a-2d9449ae833f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/src/main/java/com/visaulredactor/VisualNovelEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/engine/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualredactor/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/visualredactor/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -37,7 +40,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;created__database__entities&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -110,6 +113,7 @@
       <workItem from="1759847174753" duration="240000" />
       <workItem from="1760815934244" duration="1268000" />
       <workItem from="1760902189640" duration="1583000" />
+      <workItem from="1768612860137" duration="2170000" />
     </task>
     <servers />
   </component>
